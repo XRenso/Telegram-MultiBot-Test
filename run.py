@@ -42,7 +42,7 @@ async def command_add_bot(message: Message, command: CommandObject):
         new_bot = Bot(token=command.args, default=DefaultBotProperties(parse_mode='HTML'))
         bot_user = await new_bot.get_me()
     except TelegramUnauthorizedError:
-        return message.answer("Неверный токен")
+        return await message.answer("Неверный токен")
     await new_bot.delete_webhook(drop_pending_updates=True)
     await new_bot.set_webhook(OTHER_URL.format(bot_token=command.args))
     return await message.answer(f"Бот @{bot_user.username} теперь работает!")
